@@ -1,0 +1,30 @@
+.contact {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 350px;
+  padding: 10px;
+
+  border: 2px solid #333333;
+  border-radius: 10px;
+}
+.icon {
+  margin-right: 5px;
+}
+/* .information {
+}
+.name {
+}
+.number {
+} */
+.button {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.4);
+}
+.button:hover,
+.button:focus {
+  box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
