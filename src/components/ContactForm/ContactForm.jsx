@@ -1,10 +1,13 @@
 import { useId } from "react";
-import { nanoid } from "nanoid";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import toast, { Toaster } from "react-hot-toast";
 // import "yup-phone-lite";
 
 import css from "./ContactForm.module.css";
+import { addContact } from "../../redux/contactsSlice";
+import { selectContacts } from "../../redux/contactsSlice";
 
 const ContactShema = Yup.object().shape({
   name: Yup.string()
@@ -20,25 +23,28 @@ const ContactShema = Yup.object().shape({
   // .required("A phone number is required"),
 });
 
-const initialValue = {
-  name: "",
-  number: "",
-};
-export default function ContactForm({ onAddContact }) {
+export default function ContactForm() {
   const nameId = useId();
   const numberId = useId();
+  const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
+
+  const onSubmitForm = (values, actions) => {
+    if (
+      contacts.find(
+        (contact) => contact.name.toLowerCase() === values.name.toLowerCase()
+      )
+    ) {
+      return toast.error("There is already a similar contact");
+    }
+    dispatch(addContact(values));
+    actions.resetForm();
+  };
 
   return (
     <Formik
-      initialValues={initialValue}
-      onSubmit={(values, actions) => {
-        onAddContact({
-          id: nanoid(),
-          name: values.name,
-          number: values.number,
-        });
-        actions.resetForm();
-      }}
+      initialValues={{ name: "", number: "" }}
+      onSubmit={onSubmitForm}
       validationSchema={ContactShema}
     >
       <Form className={css.form}>
@@ -60,6 +66,7 @@ export default function ContactForm({ onAddContact }) {
           Add contact
         </button>
       </Form>
+      <Toaster />
     </Formik>
   );
 }
