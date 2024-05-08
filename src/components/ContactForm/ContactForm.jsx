@@ -2,7 +2,7 @@ import { useId } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 // import "yup-phone-lite";
 
 import css from "./ContactForm.module.css";
@@ -66,7 +66,6 @@ export default function ContactForm() {
           Add contact
         </button>
       </Form>
-      <Toaster />
     </Formik>
   );
 }

@@ -4,6 +4,8 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 
+import { Toaster } from "react-hot-toast";
+
 const getInitialContacts = () => {
   const savedContacts = window.localStorage.getItem("contacts");
 
@@ -48,6 +50,7 @@ export default function App() {
       <ContactForm onAddContact={addContact} />
       <SearchBox value={filter} onFilter={setFilter} />
       <ContactList contacts={visibleContacts} onDeleteContact={deleteContact} />
+      <Toaster />
     </>
   );
 }
